@@ -1,6 +1,7 @@
 package com.in28minutes.rest.webservices.restfulwebservice;
 
 import java.net.URI;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +31,27 @@ public class UserResource {
 		if (user==null) {
 			throw new UserNotFoundException("id-"+id);
 		}
-		
+	
 		return user;
 		
 		
 	}
+	@GetMapping("delete/{id}")
+	 public void deleteUser(@PathVariable int id){
+			
+		
+		User user=userDao.deleteByIde(id); 
+		
+		if (user==null) {
+			throw new UserNotFoundException("id-"+id);
+		}
 	
-	@PostMapping("/create")
+	}
+	
+	@PostMapping("/users")
 	public ResponseEntity<Object> createUser(@RequestBody User user) {
 	User savedUser=userDao.save(user);
-	
 	URI location=ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
-	
 	return ResponseEntity.created(location).build();
 	
 	  
