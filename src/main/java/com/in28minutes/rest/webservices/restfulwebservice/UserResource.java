@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,7 @@ public class UserResource {
 		
 	}
 	@GetMapping("delete/{id}")
-	 public void deleteUser(@PathVariable int id){
+	 public ResponseEntity<Object> deleteUser(@PathVariable int id){
 			
 		
 		User user=userDao.deleteByIde(id); 
@@ -45,11 +47,11 @@ public class UserResource {
 		if (user==null) {
 			throw new UserNotFoundException("id-"+id);
 		}
-	
+	return (ResponseEntity<Object>) ResponseEntity.notFound();
 	}
 	
 	@PostMapping("/users")
-	public ResponseEntity<Object> createUser(@RequestBody User user) {
+	public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
 	User savedUser=userDao.save(user);
 	URI location=ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
 	return ResponseEntity.created(location).build();
