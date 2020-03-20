@@ -21,7 +21,7 @@ static {
 
 
  public List<User> findAll() {
-	return users;
+	return users; 
 }
  
  public User save(User user) {
