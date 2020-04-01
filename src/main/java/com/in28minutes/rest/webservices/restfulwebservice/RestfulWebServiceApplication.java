@@ -16,20 +16,7 @@ public class RestfulWebServiceApplication {
 		SpringApplication.run(RestfulWebServiceApplication.class, args);
 	}
 
-	@Bean
-	public SessionLocaleResolver localResolver() {
-		SessionLocaleResolver localResolver=new SessionLocaleResolver();
-		localResolver.setDefaultLocale(Locale.US);
-		return localResolver;
-	}
 	
-	
-	@Bean
-	public ResourceBundleMessageSource bundleMessageSource() {
-		ResourceBundleMessageSource messageSource=new ResourceBundleMessageSource();
-		messageSource.addBasenames("messages");
-		return messageSource;
-	}
 	
 	
 }
